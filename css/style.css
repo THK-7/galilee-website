@@ -259,6 +259,123 @@ footer.site-footer {
   color: var(--text-muted);
 }
 
+/* ===== 365일 성경 ===== */
+.month-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.month-tab {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.month-tab:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.month-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.month-tab:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bible-progress {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.bible-empty {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+#day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bible-day {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.bible-day summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bible-day summary::-webkit-details-marker {
+  display: none;
+}
+
+.bible-day-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 52px;
+}
+
+.bible-day-title {
+  font-weight: 600;
+  flex: 1;
+}
+
+.bible-day-ref {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.bible-day-body {
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--border);
+}
+
+.bible-day-body p {
+  margin: 14px 0 0;
+}
+
+.bible-story {
+  line-height: 1.8;
+}
+
+.bible-think,
+.bible-pray {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.bible-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
 /* ===== 반응형 ===== */
 @media (max-width: 600px) {
   .hero h1 {
