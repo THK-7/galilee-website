@@ -50,7 +50,6 @@
       const summary = document.createElement("summary");
       summary.innerHTML = `
         <span class="bible-day-num">Day ${d.day}</span>
-        <span class="bible-day-title">${d.title}</span>
         <span class="bible-day-ref">${d.ref}</span>
       `;
       details.appendChild(summary);
@@ -59,8 +58,6 @@
       body.className = "bible-day-body";
       body.innerHTML = `
         <p class="bible-story">${d.story}</p>
-        <p class="bible-think"><strong>생각해보아요.</strong> ${d.think}</p>
-        <p class="bible-pray"><strong>기도.</strong> ${d.pray}</p>
       `;
       details.appendChild(body);
 
