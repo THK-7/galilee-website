@@ -80,7 +80,8 @@
       background: var(--bg-elevated);
     }
     .cw-cell.blocked {
-      background: var(--bg);
+      background: var(--text-muted);
+      opacity: 0.35;
     }
     .cw-num {
       position: absolute;
@@ -198,14 +199,11 @@
       border-radius: var(--radius);
       padding: 12px 16px;
     }
-    .quiz-answerkey summary {
-      cursor: pointer;
+    .quiz-answerkey h3 {
       font-weight: 600;
       color: var(--accent);
       font-size: 0.92rem;
-    }
-    .quiz-answerkey summary::marker {
-      color: var(--accent);
+      margin: 0;
     }
     .quiz-answerkey p {
       font-size: 0.88rem;
@@ -271,11 +269,11 @@
           <button class="quiz-btn secondary" data-action="reset" data-level="beginner">다시 풀기</button>
           <span class="quiz-score" id="beginner-score"></span>
         </div>
-        <details class="quiz-answerkey">
-          <summary>정답 확인 (스스로 채점하기)</summary>
+        <div class="quiz-answerkey">
+          <h3>정답</h3>
           <p><strong>가로:</strong> 1. 골고다 · 2. 마태복음 · 3. 세겔 · 4. 사마리아 · 5. 가나안</p>
-          <p><strong>세로:</strong> 6. 도마 · 7. 팔복 · 8. 마리아 · 9. 아가 · 10. 다시스</p>
-        </details>
+          <p><strong>세로:</strong> 1. 도마 · 2. 팔복 · 3. 마리아 · 4. 아가 · 5. 다시스</p>
+        </div>
       </div>
 
       <!-- 중급 -->
@@ -302,11 +300,11 @@
           <button class="quiz-btn secondary" data-action="reset" data-level="intermediate">다시 풀기</button>
           <span class="quiz-score" id="intermediate-score"></span>
         </div>
-        <details class="quiz-answerkey">
-          <summary>정답 확인 (스스로 채점하기)</summary>
+        <div class="quiz-answerkey">
+          <h3>정답</h3>
           <p><strong>가로:</strong> 1. 골고다 · 2. 마태복음 · 3. 세겔 · 4. 사마리아 · 5. 가나안</p>
-          <p><strong>세로:</strong> 6. 도마 · 7. 팔복 · 8. 마리아 · 9. 아가 · 10. 다시스</p>
-        </details>
+          <p><strong>세로:</strong> 1. 도마 · 2. 팔복 · 3. 마리아 · 4. 아가 · 5. 다시스</p>
+        </div>
       </div>
 
       <!-- 고급 -->
@@ -329,11 +327,11 @@
           <button class="quiz-btn secondary" data-action="reset" data-level="advanced">다시 풀기</button>
           <span class="quiz-score" id="advanced-score"></span>
         </div>
-        <details class="quiz-answerkey">
-          <summary>정답 확인 (스스로 채점하기)</summary>
+        <div class="quiz-answerkey">
+          <h3>정답</h3>
           <p><strong>가로:</strong> 1. 골고다 · 2. 마태복음 · 3. 세겔 · 4. 사마리아 · 5. 가나안</p>
-          <p><strong>세로:</strong> 6. 도마 · 7. 팔복 · 8. 마리아 · 9. 아가 · 10. 다시스</p>
-        </details>
+          <p><strong>세로:</strong> 1. 도마 · 2. 팔복 · 3. 마리아 · 4. 아가 · 5. 다시스</p>
+        </div>
       </div>
 
       <p class="bible-note">
@@ -354,12 +352,13 @@
   <script>
     (function () {
       // null = 막힌 칸, 문자열 = 정답 글자. num이 있으면 그 칸에 번호 표시.
+      // 가로/세로 번호는 각각 1부터 독립적으로 매겨, 옆 열쇠/정답 목록의 번호와 일치시킴.
       const TEMPLATE = [
-        [null, null, null, { letter: '골', num: 1 }, { letter: '고' }, { letter: '다', num: 10 }],
-        [{ letter: '도', num: 6 }, null, { letter: '팔', num: 7 }, null, null, { letter: '시' }],
+        [null, null, null, { letter: '골', num: 1 }, { letter: '고' }, { letter: '다', num: 5 }],
+        [{ letter: '도', num: 1 }, null, { letter: '팔', num: 2 }, null, null, { letter: '시' }],
         [{ letter: '마', num: 2 }, { letter: '태' }, { letter: '복' }, { letter: '음' }, null, { letter: '스' }],
         [null, null, { letter: '세', num: 3 }, { letter: '겔' }, null, null],
-        [{ letter: '사', num: 4 }, { letter: '마', num: 8 }, { letter: '리' }, { letter: '아', num: 9 }, null, null],
+        [{ letter: '사', num: 4 }, { letter: '마', num: 3 }, { letter: '리' }, { letter: '아', num: 4 }, null, null],
         [null, { letter: '리' }, null, { letter: '가', num: 5 }, { letter: '나' }, { letter: '안' }],
         [null, { letter: '아' }, null, null, null, null],
       ];
