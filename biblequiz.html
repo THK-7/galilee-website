@@ -80,12 +80,7 @@
       background: var(--bg-elevated);
     }
     .cw-cell.blocked {
-      background: var(--text);
-      opacity: 0.85;
-    }
-    [data-theme="dark"] .cw-cell.blocked,
-    :root:not([data-theme="light"]) .cw-cell.blocked {
-      opacity: 0.6;
+      background: var(--bg);
     }
     .cw-num {
       position: absolute;
@@ -197,6 +192,30 @@
     .quiz-score .quiz-score-num {
       color: var(--accent);
     }
+    .quiz-answerkey {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+    }
+    .quiz-answerkey summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.92rem;
+    }
+    .quiz-answerkey summary::marker {
+      color: var(--accent);
+    }
+    .quiz-answerkey p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin: 10px 0 0;
+      line-height: 1.7;
+    }
+    .quiz-answerkey p strong {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -252,6 +271,11 @@
           <button class="quiz-btn secondary" data-action="reset" data-level="beginner">다시 풀기</button>
           <span class="quiz-score" id="beginner-score"></span>
         </div>
+        <details class="quiz-answerkey">
+          <summary>정답 확인 (스스로 채점하기)</summary>
+          <p><strong>가로:</strong> 1. 골고다 · 2. 마태복음 · 3. 세겔 · 4. 사마리아 · 5. 가나안</p>
+          <p><strong>세로:</strong> 6. 도마 · 7. 팔복 · 8. 마리아 · 9. 아가 · 10. 다시스</p>
+        </details>
       </div>
 
       <!-- 중급 -->
@@ -278,6 +302,11 @@
           <button class="quiz-btn secondary" data-action="reset" data-level="intermediate">다시 풀기</button>
           <span class="quiz-score" id="intermediate-score"></span>
         </div>
+        <details class="quiz-answerkey">
+          <summary>정답 확인 (스스로 채점하기)</summary>
+          <p><strong>가로:</strong> 1. 골고다 · 2. 마태복음 · 3. 세겔 · 4. 사마리아 · 5. 가나안</p>
+          <p><strong>세로:</strong> 6. 도마 · 7. 팔복 · 8. 마리아 · 9. 아가 · 10. 다시스</p>
+        </details>
       </div>
 
       <!-- 고급 -->
@@ -300,6 +329,11 @@
           <button class="quiz-btn secondary" data-action="reset" data-level="advanced">다시 풀기</button>
           <span class="quiz-score" id="advanced-score"></span>
         </div>
+        <details class="quiz-answerkey">
+          <summary>정답 확인 (스스로 채점하기)</summary>
+          <p><strong>가로:</strong> 1. 골고다 · 2. 마태복음 · 3. 세겔 · 4. 사마리아 · 5. 가나안</p>
+          <p><strong>세로:</strong> 6. 도마 · 7. 팔복 · 8. 마리아 · 9. 아가 · 10. 다시스</p>
+        </details>
       </div>
 
       <p class="bible-note">
