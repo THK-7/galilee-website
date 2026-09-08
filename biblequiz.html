@@ -214,6 +214,89 @@
     .quiz-answerkey p strong {
       color: var(--text);
     }
+    .print-level-title {
+      display: none;
+    }
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .site-header, .site-footer, #theme-toggle, .quiz-tabs,
+      .quiz-actions, .quiz-score {
+        display: none !important;
+      }
+      .quiz-level {
+        display: flex !important;
+        page-break-before: always;
+      }
+      .quiz-level:first-of-type {
+        page-break-before: auto;
+      }
+      .print-level-title {
+        display: block;
+        font-size: 1.3rem;
+        margin: 0 0 4px;
+      }
+      .cw-cell.blocked {
+        background: #ccc !important;
+        opacity: 1 !important;
+      }
+      .cw-cell input {
+        border: none !important;
+        color: #000 !important;
+      }
+      .cw-cell input.locked {
+        background: #f2e4dd !important;
+        color: #000 !important;
+      }
+      .quiz-answerkey {
+        border: 1px solid #999 !important;
+        background: #fafafa !important;
+        padding: 8px 14px !important;
+      }
+      .quiz-answerkey p {
+        margin: 6px 0 0 !important;
+      }
+      .crossword-wrap {
+        overflow: visible !important;
+        padding-bottom: 0 !important;
+      }
+      .hero {
+        margin: 0 0 6px !important;
+      }
+      .hero p {
+        display: none !important;
+      }
+      .quiz-level {
+        gap: 10px !important;
+      }
+      .quiz-level-intro {
+        padding: 8px 12px !important;
+      }
+      .quiz-wordbank {
+        gap: 5px !important;
+      }
+      .quiz-wordbank span {
+        padding: 2px 9px !important;
+        font-size: 0.78rem !important;
+      }
+      .cw-clues {
+        gap: 14px !important;
+      }
+      .cw-clues li {
+        font-size: 0.85rem !important;
+        line-height: 1.35 !important;
+      }
+      .bible-note {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -247,6 +330,7 @@
 
       <!-- 초급 -->
       <div class="quiz-level" data-level="beginner">
+        <h2 class="print-level-title">성경 퀴즈 · 초급</h2>
         <p class="quiz-level-intro">시작 칸의 글자는 미리 채워져 있습니다. 단어은행을 참고해서 나머지 칸을 채워보세요.</p>
         <div class="quiz-wordbank">
           <span>골고다</span><span>도마</span><span>팔복</span><span>마태복음</span><span>사마리아</span>
@@ -278,6 +362,7 @@
 
       <!-- 중급 -->
       <div class="quiz-level" data-level="intermediate" hidden>
+        <h2 class="print-level-title">성경 퀴즈 · 중급</h2>
         <p class="quiz-level-intro">단어은행을 참고해서 빈 칸을 모두 채워보세요.</p>
         <div class="quiz-wordbank">
           <span>골고다</span><span>도마</span><span>팔복</span><span>마태복음</span><span>사마리아</span>
@@ -309,6 +394,7 @@
 
       <!-- 고급 -->
       <div class="quiz-level" data-level="advanced" hidden>
+        <h2 class="print-level-title">성경 퀴즈 · 고급</h2>
         <p class="quiz-level-intro">단어은행 없이, 조금 더 깊이 있는 질문만 보고 빈 칸을 채워보세요.</p>
         <div class="crossword-wrap"><div class="crossword-grid" id="grid-advanced"></div></div>
         <div class="cw-clues">
