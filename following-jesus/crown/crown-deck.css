@@ -1,0 +1,200 @@
+/* Crown Him with Many Crowns — PowerPoint-style slide viewer */
+.deck-wrap { max-width: 1040px; }
+.deck-header { margin-bottom: 0; padding-bottom: 0; }
+.deck-header h1 { line-height: 1.3; font-size: clamp(1.45rem, 3vw, 1.9rem); margin: 10px 0 6px; }
+.deck-header .post-meta { margin: 0; }
+
+.deck { margin: 16px auto 8px; max-width: max(320px, calc((100vh - 150px) * 16 / 9)); }
+
+.deck-stage {
+  position: relative;
+  background: #111;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  aspect-ratio: 16 / 9;
+  user-select: none;
+  touch-action: pan-y;
+}
+.deck-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+.deck-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 18%;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0);
+  font-size: 56px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.deck-arrow.deck-prev { left: 0; }
+.deck-arrow.deck-next { right: 0; }
+.deck-arrow:hover,
+.deck-arrow:focus-visible {
+  color: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.28), transparent);
+  outline: none;
+}
+.deck-arrow.deck-next:hover,
+.deck-arrow.deck-next:focus-visible {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.28), transparent);
+}
+.deck-arrow[disabled] { visibility: hidden; }
+
+.deck-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.deck-spacer { flex: 1; }
+.deck-btn {
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  min-height: 40px;
+}
+.deck-btn:hover { border-color: var(--accent); color: var(--accent); }
+.deck-btn[disabled] { opacity: 0.4; cursor: default; }
+.deck-btn[disabled]:hover { border-color: var(--border); color: var(--text); }
+.deck-count {
+  min-width: 70px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.deck-thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 2px 10px;
+  scroll-snap-type: x proximity;
+}
+.deck-thumb {
+  position: relative;
+  flex: 0 0 auto;
+  width: 128px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: var(--bg-elevated);
+  cursor: pointer;
+  overflow: hidden;
+  scroll-snap-align: start;
+  opacity: 0.75;
+}
+.deck-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.deck-thumb span {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  font-size: 11px;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+.deck-thumb:hover { opacity: 1; }
+.deck-thumb.is-active { border-color: var(--accent); opacity: 1; }
+
+.deck-all { display: grid; gap: 20px; margin-top: 16px; }
+.deck-all[hidden] { display: none; }
+.deck-all figure { margin: 0; }
+.deck-all img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  background: #fff;
+}
+.deck-all figcaption { text-align: right; font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+.deck.is-all .deck-stage,
+.deck.is-all .deck-thumbs,
+.deck.is-all .deck-prev,
+.deck.is-all .deck-next,
+.deck.is-all .deck-count,
+.deck.is-all .deck-full { display: none; }
+
+/* Fullscreen */
+.deck-stage:fullscreen { border-radius: 0; aspect-ratio: auto; background: #000; }
+.deck-stage:fullscreen img { background: #000; }
+.deck-stage:-webkit-full-screen { border-radius: 0; background: #000; width: 100%; height: 100%; }
+
+.deck-weeks {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0 8px;
+  font-weight: 600;
+}
+
+.deck-text {
+  max-width: 720px;
+  margin: 32px auto 0;
+  padding: 12px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+.deck-text > summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
+.deck-text .bi-en { margin-bottom: 4px; }
+.deck-text .bi-ko { margin-top: 0; color: var(--text-muted); }
+.deck-text .post-content ol li,
+.deck-text .post-content ul li { margin-bottom: 10px; }
+.deck-text .quiz-choices { list-style: none; padding-left: 0; margin: 6px 0; }
+.deck-text .quiz-choices li { margin-bottom: 2px; }
+.deck-text .quiz-note { font-size: 0.95rem; color: var(--text-muted); }
+.deck-text details { margin: 24px 0; padding: 10px 16px; border: 1px solid var(--border); border-radius: var(--radius); }
+.deck-text details summary { cursor: pointer; font-weight: 600; }
+.church-sign { text-align: right; margin-top: 32px; color: var(--text-muted); }
+
+/* Hub grid */
+.crown-intro { color: var(--text-muted); margin: 8px 0 24px; }
+.crown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+  margin-bottom: 40px;
+}
+.crown-card {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-elevated);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.crown-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); }
+.crown-card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #fff; }
+.crown-card-body { padding: 10px 14px 14px; }
+.crown-card-week { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.crown-card-title { font-weight: 700; line-height: 1.35; }
+.crown-card-ko { color: var(--text-muted); font-size: 0.95rem; margin-top: 2px; }
+
+@media (max-width: 600px) {
+  .deck-arrow { font-size: 40px; color: rgba(255, 255, 255, 0.0); }
+  .deck-thumb { width: 96px; }
+  .deck-btn { padding: 8px 10px; }
+  .crown-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .crown-card-body { padding: 8px 10px 10px; }
+  .crown-card-title { font-size: 0.9rem; }
+  .crown-card-ko { font-size: 0.85rem; }
+}
