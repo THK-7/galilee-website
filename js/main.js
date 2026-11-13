@@ -3,6 +3,7 @@
 // 1) 공통 헤더와 메인 메뉴 (모든 페이지에서 같은 메뉴를 보여줍니다)
 (function () {
   const MENU = [
+    { href: "index.html", label: "홈" },
     { href: "bible365.html", label: "365일 성경" },
     { href: "following-jesus/crown-him-with-many-crowns.html", label: "영어예배 슬라이드", match: /crown-/ },
     { href: "following-jesus.html", label: "Following Jesus", match: /following-jesus/ },
