@@ -1,5 +1,90 @@
 // Galilee Gateway 공통 스크립트
-// 1) 다크/라이트 모드 토글 (localStorage 미사용 - 세션 내 메모리 + 시스템 설정 감지)
+
+// 1) 공통 헤더와 메인 메뉴 (모든 페이지에서 같은 메뉴를 보여줍니다)
+(function () {
+  const MENU = [
+    { href: "bible365.html", label: "365일 성경" },
+    { href: "following-jesus/crown-him-with-many-crowns.html", label: "영어예배 슬라이드", match: /crown-/ },
+    { href: "following-jesus.html", label: "Following Jesus", match: /following-jesus/ },
+    { href: "biblequiz.html", label: "성경퀴즈" },
+    { href: "bibleoverview.html", label: "성경총론" },
+    { href: "joshua.html", label: "여호수아서" },
+    { href: "about.html", label: "갈릴리교회 소개" },
+  ];
+
+  const header = document.querySelector("header.site-header");
+  if (!header) return;
+
+  const oldBrand = header.querySelector(".brand");
+  const base = ((oldBrand && oldBrand.getAttribute("href")) || "index.html").replace(/index\.html$/, "");
+
+  // 공통 헤더 스타일 불러오기 (자체 스타일을 쓰는 페이지 포함)
+  const hasHeaderCss =
+    document.querySelector('link[href$="css/style.css"]') ||
+    document.querySelector('link[href$="css/header.css"]');
+  if (!hasHeaderCss) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = base + "css/header.css";
+    document.head.appendChild(link);
+  }
+
+  if (!header.querySelector(".gg-top")) {
+    let toggle = header.querySelector("#theme-toggle");
+    if (!toggle) {
+      toggle = document.createElement("button");
+      toggle.id = "theme-toggle";
+    }
+    toggle.setAttribute("aria-label", "밝은/어두운 화면 전환");
+
+    const top = document.createElement("div");
+    top.className = "gg-top";
+    top.innerHTML =
+      '<a href="' + base + 'index.html" class="brand" aria-label="Galilee Gateway 홈">' +
+      '<img class="brand-logo" src="' + base + 'img/galilee-mark.webp" alt="" width="52" height="37" />' +
+      '<span class="brand-text"><span class="brand-name">Galilee Gateway</span>' +
+      '<span class="brand-sub">갈릴리교회 Galilee Church</span></span></a>';
+    top.appendChild(toggle);
+
+    const nav = document.createElement("nav");
+    nav.className = "site-nav";
+    nav.setAttribute("aria-label", "주 메뉴");
+    const list = document.createElement("div");
+    list.className = "gg-menu";
+    MENU.forEach(function (item) {
+      const a = document.createElement("a");
+      a.href = base + item.href;
+      a.textContent = item.label;
+      a.dataset.key = item.href;
+      list.appendChild(a);
+    });
+    nav.appendChild(list);
+
+    header.innerHTML = "";
+    header.appendChild(top);
+    header.appendChild(nav);
+  }
+
+  // 현재 메뉴 표시
+  const path = location.pathname;
+  const file = path.split("/").pop() || "index.html";
+  let current = null;
+  header.querySelectorAll("nav.site-nav a").forEach(function (a) {
+    const key = a.dataset.key || a.getAttribute("href").replace(/^(\.\.\/)+/, "");
+    const item = MENU.find(function (m) { return m.href === key; });
+    if (!current && item && item.match && item.match.test(path)) current = a;
+    if (!current && key.split("/").pop() === file) current = a;
+  });
+  if (current) {
+    current.setAttribute("aria-current", "page");
+    const list = current.parentNode;
+    if (list.scrollWidth > list.clientWidth) {
+      list.scrollLeft = Math.max(0, current.offsetLeft - 24);
+    }
+  }
+})();
+
+// 2) 다크/라이트 모드 토글 (localStorage 미사용 - 세션 내 메모리 + 시스템 설정 감지)
 (function () {
   const root = document.documentElement;
   const toggleBtn = document.getElementById("theme-toggle");
@@ -30,65 +115,8 @@
   }
 })();
 
-// 2) 갈릴리교회 브랜드 헤더 · 모바일 메뉴 · 현재 메뉴 표시 · 푸터
-//    (공통 스타일시트 css/style.css 를 쓰는 페이지에서만 적용)
+// 3) 푸터: 교회 이름과 삼대 목표
 (function () {
-  const usesSiteCss = !!document.querySelector('link[href$="css/style.css"]');
-  if (!usesSiteCss) return;
-
-  const header = document.querySelector("header.site-header");
-  const brand = header && header.querySelector(".brand");
-  const nav = header && header.querySelector("nav.site-nav");
-  const base = (brand && brand.getAttribute("href") || "index.html").replace(/index\.html$/, "");
-
-  // 로고 + 교회 이름
-  if (brand && !brand.querySelector(".brand-logo")) {
-    const name = brand.textContent.trim() || "Galilee Gateway";
-    brand.innerHTML =
-      '<img class="brand-logo" src="' + base + 'img/galilee-mark.webp" alt="" width="46" height="31" />' +
-      '<span class="brand-text"><span>' + name + '</span><span class="brand-sub">갈릴리교회 Galilee Church</span></span>';
-    brand.setAttribute("aria-label", name + " 홈");
-  }
-
-  // 현재 페이지 메뉴 표시
-  if (nav) {
-    const here = location.pathname.split("/").pop() || "index.html";
-    const inFJ = /\/following-jesus\//.test(location.pathname);
-    nav.querySelectorAll("a").forEach(function (a) {
-      const target = (a.getAttribute("href") || "").split("/").pop();
-      if (target === here || (inFJ && target === "following-jesus.html")) {
-        a.setAttribute("aria-current", "page");
-      }
-    });
-  }
-
-  // 모바일 메뉴 버튼
-  if (header && nav && !header.querySelector(".nav-toggle")) {
-    nav.id = nav.id || "site-nav";
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "nav-toggle";
-    btn.setAttribute("aria-controls", nav.id);
-    btn.setAttribute("aria-expanded", "false");
-    btn.setAttribute("aria-label", "메뉴 열기");
-    btn.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
-    nav.parentNode.insertBefore(btn, nav);
-    btn.addEventListener("click", function () {
-      const open = nav.classList.toggle("is-open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-      btn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && nav.classList.contains("is-open")) {
-        nav.classList.remove("is-open");
-        btn.setAttribute("aria-expanded", "false");
-        btn.focus();
-      }
-    });
-  }
-
-  // 푸터: 교회 이름과 삼대 목표
   const footWrap = document.querySelector("footer.site-footer .wrap");
   if (footWrap && !footWrap.querySelector(".footer-church")) {
     const div = document.createElement("div");
@@ -102,13 +130,13 @@
   }
 })();
 
-// 3) 공유하기 버튼 (data-share) - 친구에게 소개하기
+// 4) 공유하기 버튼 (data-share) - 친구에게 소개하기
 (function () {
   function toast(msg) {
-    let t = document.querySelector(".toast");
+    let t = document.querySelector(".gg-toast");
     if (!t) {
       t = document.createElement("div");
-      t.className = "toast";
+      t.className = "gg-toast";
       t.setAttribute("role", "status");
       document.body.appendChild(t);
     }
