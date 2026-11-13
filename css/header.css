@@ -1,0 +1,168 @@
+/* Galilee Gateway 공통 헤더 · 메인 메뉴 · 푸터
+   모든 페이지에서 같은 모양으로 보이도록 main.js 가 이 파일을 불러옵니다. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+:root {
+  --gg-bg: #ffffff;
+  --gg-text: #13294b;
+  --gg-muted: #5b6b7f;
+  --gg-line: #e6ebf1;
+  --gg-accent: #1677b8;
+  --gg-bar: #f29f3d;
+  --gg-soft: #eaf6fd;
+  --gg-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+}
+:root[data-theme="dark"] {
+  --gg-bg: #121722;
+  --gg-text: #eef3f9;
+  --gg-muted: #a9b5c4;
+  --gg-line: #273042;
+  --gg-accent: #5bc0ee;
+  --gg-soft: #18263a;
+}
+
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--gg-bg);
+  border-bottom: 1px solid var(--gg-line);
+  box-shadow: 0 2px 10px rgba(19, 41, 75, 0.06);
+  padding: 0;
+  font-family: var(--gg-font);
+}
+header.site-header .gg-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 20px 6px;
+}
+header.site-header .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gg-text);
+  text-decoration: none;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+header.site-header .brand:hover { color: var(--gg-text); text-decoration: none; }
+header.site-header .brand-logo {
+  width: 52px;
+  height: 37px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  padding: 2px;
+  box-shadow: 0 0 0 1px var(--gg-line);
+}
+header.site-header .brand-text { display: flex; flex-direction: column; gap: 3px; }
+header.site-header .brand-name { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.01em; }
+header.site-header .brand-sub { font-size: 0.78rem; font-weight: 600; color: var(--gg-muted); }
+
+header.site-header #theme-toggle {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--gg-line);
+  background: var(--gg-bg);
+  color: var(--gg-text);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* 메인 메뉴: 항상 보이고, 좁은 화면에서는 옆으로 밀어서 봅니다 */
+header.site-header nav.site-nav {
+  display: block;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 8px;
+  gap: 0;
+}
+header.site-header .gg-menu {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+header.site-header .gg-menu::-webkit-scrollbar { display: none; }
+header.site-header nav.site-nav a {
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  padding: 12px 12px 14px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--gg-text);
+  text-decoration: none;
+  background: none;
+  border-radius: 0;
+}
+header.site-header nav.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: transparent;
+  transition: background 0.15s;
+}
+header.site-header nav.site-nav a:hover { color: var(--gg-accent); text-decoration: none; }
+header.site-header nav.site-nav a:hover::after { background: var(--gg-line); }
+header.site-header nav.site-nav a[aria-current="page"] { color: var(--gg-accent); }
+header.site-header nav.site-nav a[aria-current="page"]::after { background: var(--gg-bar); }
+
+@media (max-width: 640px) {
+  header.site-header .gg-top { padding: 10px 16px 4px; }
+  header.site-header .brand-logo { width: 44px; height: 31px; }
+  header.site-header .brand-name { font-size: 1.15rem; }
+  header.site-header nav.site-nav { padding: 0 4px; }
+  header.site-header nav.site-nav a { font-size: 0.98rem; padding: 10px 11px 12px; }
+  header.site-header nav.site-nav a::after { left: 11px; right: 11px; }
+  /* 오른쪽 끝에 더 있다는 표시 */
+  header.site-header nav.site-nav { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent); mask-image: linear-gradient(to right, #000 88%, transparent); }
+}
+
+/* 푸터 */
+footer.site-footer .footer-church {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-bottom: 10px;
+  font-family: var(--gg-font);
+  color: var(--gg-muted);
+}
+footer.site-footer .footer-church strong { color: var(--gg-text); }
+footer.site-footer .footer-church span::before { content: "·"; margin-right: 14px; }
+
+.gg-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(20px);
+  background: #13294b;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: var(--gg-font);
+  font-size: 0.95rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 100;
+}
+.gg-toast.is-show { opacity: 1; transform: translateX(-50%) translateY(0); }
